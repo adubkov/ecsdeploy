@@ -1,0 +1,7 @@
+boto3
+coverage
+Jinja2
+mock
+nose
+pyaml
+retry

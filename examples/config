@@ -1,0 +1,20 @@
+# Config for ECSDeploy
+
+# Default Amazon ECS Repository URI. It will be used by default for all 
+# deployments. Used in container image uri.
+# Container image uri: `esr.url` + `container.release` + `container.name` + `version`
+ecr:
+  uri: 730926784978.dkr.ecr.us-west-2.amazonaws.com
+
+# IAM role that allows Amazon ECS to make calls to your load balancer on your
+# behalf. This parameter is required if you are using a load balancer with 
+# your service. 
+# ECSDeploy will append `role` to service if `load_balancers` parameter is not empty.
+role: ecsServiceRole
+
+# Example of override some settings for specific environment and region
+# environments:
+#   prd:
+#     us-west-1:
+#       ecr:
+#         uri: 730926784978.dkr.ecr.us-west-1.amazonaws.com
