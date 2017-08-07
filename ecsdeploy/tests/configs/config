@@ -1,0 +1,6 @@
+# Mock config for ECSDeploy
+
+ecr:
+  uri: mock.dkr.ecr.us-west-2.amazonaws.com
+role: ecsServiceRole
+namespace: release

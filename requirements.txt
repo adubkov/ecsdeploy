@@ -4,4 +4,3 @@ Jinja2
 mock
 nose
 pyaml
-retry

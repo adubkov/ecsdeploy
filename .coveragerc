@@ -1,0 +1,5 @@
+[run]
+omit =
+    ecsdeploy/__init__.py
+    ecsdeploy/logger.py
+    ecsdeploy/tests/*

@@ -28,7 +28,7 @@ setup(
     install_requires=install_requires,
     tests_require=tests_require,
     # for debug:
-    #test_suite="amibuilder.tests",
+    #test_suite="ecsdeploy.tests",
     test_suite="nose.collector",
     entry_points={
         "console_scripts":[

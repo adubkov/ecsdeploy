@@ -1,0 +1,1 @@
+class ECSDeployException(Exception): pass

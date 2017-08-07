@@ -1,0 +1,53 @@
+service:
+  name: mock
+  deployment:
+    maximum_percent: 100
+    minimum_healthy_percent: 0
+  desired_count: 1
+  load_balancers:
+    http:
+      container_name: mock
+      container_port: 8080
+
+task:
+  volumes:
+    config: /etc/config.cfg
+    db: /data
+
+  containers:
+    mock:
+      cpu: 10
+      memory: 1024
+      essential: True
+      port_mappings:
+        -
+          host_port: 0
+          container_port: 8080
+          protocol: tcp
+      mount_points:
+        /etc/config.cfg:
+          source_volume: config 
+        /data:
+          source_volume: db 
+
+environments:
+  dev:
+    namespace: dev
+    service:
+      cluster: ecs-dev
+      load_balancers:
+        http:
+          target_group_arn: "arn:aws:elasticloadbalancing:us-west-2:1234567890:targetgroup/mock-ecs/1234567890"
+  prd:
+    namespace: release
+    service:
+      cluster: prd-sjc
+    regions:
+      us-west-2:
+        environment_variables:
+          token: {{ token }}
+          debug: False
+        service:
+          load_balancers:
+            http:
+              target_group_arn: "arn:aws:elasticloadbalancing:us-west-2:1234567890:targetgroup/mock-ecs/1234567890"

@@ -4,7 +4,7 @@
 # deployments. Used in container image uri.
 # Container image uri: `esr.url` + `container.release` + `container.name` + `version`
 ecr:
-  uri: 730926784978.dkr.ecr.us-west-2.amazonaws.com
+  uri: 1234567890.dkr.ecr.us-west-1.amazonaws.com
 
 # IAM role that allows Amazon ECS to make calls to your load balancer on your
 # behalf. This parameter is required if you are using a load balancer with 
@@ -12,9 +12,12 @@ ecr:
 # ECSDeploy will append `role` to service if `load_balancers` parameter is not empty.
 role: ecsServiceRole
 
+namespace: release
+
 # Example of override some settings for specific environment and region
-# environments:
-#   prd:
-#     us-west-1:
-#       ecr:
-#         uri: 730926784978.dkr.ecr.us-west-1.amazonaws.com
+#environments:
+#  prd:
+#    regions:
+#      us-west-2:
+#        ecr:
+#          uri: 1234567890.dkr.ecr.us-west-2.amazonaws.com
