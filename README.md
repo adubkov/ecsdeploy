@@ -19,6 +19,7 @@ EOF
 
 ## Configuration
 
+**~/ecsdeploy/config**:
 ```
 ecr:
   uri: 1234567890.dkr.ecr.us-west-1.amazonaws.com
@@ -27,6 +28,8 @@ namespace: release
 ```
 
 ### Simple config example
+
+**~/ecsdeploy/services/webapp**:
 ```
 service:
   name: elasticsearch
