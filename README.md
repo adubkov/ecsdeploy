@@ -1,6 +1,6 @@
 # ECSDeploy
 
-When you using ecsdeploy you have to me in current configs directory:
+When you using ecsdeploy you have to be in current configs directory:
 ```
 $ tree ~/ecsdeploy
 .
