@@ -1,0 +1,72 @@
+service:
+  name: webapp
+  deployment:
+    maximum_percent: 200
+    minimum_healthy_percent: 0
+  desired_count: 1
+  load_balancers:
+    http_port:
+      container_name: webapp
+      container_port: 8000
+
+environment_variables:
+  ttl: "true"
+
+task:
+  volumes:
+    apache_logs: /var/log/apache2
+    app_logs: /var/log/app
+    config: /etc/config.conf
+
+  containers:
+    webapp:
+      memory: 1024
+      essential: True
+      port_mappings:
+        -
+          host_port: 0
+          container_port: 8000
+          protocol: tcp
+      mount_points:
+        /var/log/apache2:
+          source_volume: apache_logs
+        /var/log/elastica:
+          source_volume: app_logs 
+        /etc/app/config.conf:
+          source_volume: config
+          read_only: True
+
+environments:
+  dev:
+    service:
+      cluster: dev-cluster
+    environment_variables:
+      DOMAIN: webapp.local
+    regions:
+      us-west-2:
+        service:
+          load_balancers:
+            http_port:
+              target_group_arn: "arn:aws:elasticloadbalancing:us-west-2:XXX:targetgroup/webapp-ecs/11180ee0b73114a6"
+  qa:
+    service:
+      cluster: qa-cluster
+    environment_variables:
+      DOMAIN: webapp-qa.local
+    regions:
+      us-west-2:
+        service:
+          load_balancers:
+            http_port:
+              target_group_arn: "arn:aws:elasticloadbalancing:us-west-2:XXX:targetgroup/webapp-ecs/111bad4e21133b43"
+  prd:
+    service:
+      cluster: production-cluster
+    environment_variables:
+      DOMAIN: www.webapp-domain.net
+    regions:
+      us-west-1:
+        service:
+          load_balancers:
+            http_port:
+              target_group_arn: "arn:aws:elasticloadbalancing:us-west-1:XXX:targetgroup/webapp-ecs/111bad7e31338bc4"
