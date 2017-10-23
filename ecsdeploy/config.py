@@ -21,6 +21,7 @@ class Config(UserDict, object):
         base_config_path = os.path.join(path, 'config')
         base_config = Config._load(base_config_path, pre_args)
 
+        # TODO: if service_config_path is dir, use it as path+services
         service_config_path = os.path.join(path, 'services', service_name)
         service_config = Config._load(service_config_path, pre_args)
         self.configs = [
