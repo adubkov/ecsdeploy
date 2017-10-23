@@ -51,8 +51,9 @@ class Service(object):
         service = self.service
         deployment = service['deployment']
         deployment_configuration=dict(
-            maximumPercent=deployment['maximum_percent'],
-            minimumHealthyPercent=deployment['minimum_healthy_percent'],
+            # TODO: make default module with values
+            maximumPercent=deployment.get('maximum_percent', '200'),
+            minimumHealthyPercent=deployment.get('minimum_healthy_percent', '50'),
         )
 
         service_map = dict(
@@ -62,6 +63,7 @@ class Service(object):
             desiredCount=service['desired_count'],
             deploymentConfiguration=deployment_configuration,
             placementConstraints=service.get('placement_constraints', []),
+            #  TODO: placement_strategy - convert dict to list of dicts
             placementStrategy=service.get('placement_strategy', [])
         )
 

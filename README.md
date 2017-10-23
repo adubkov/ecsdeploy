@@ -29,10 +29,10 @@ namespace: release
 
 ### Simple config example
 
-**~/ecsdeploy/services/webapp**:
+**~/ecsdeploy/services/apache**:
 ```
 service:
-  name: elasticsearch
+  name: apache
   deployment:
     maximum_percent: 100
     minimum_healthy_percent: 0
@@ -40,26 +40,23 @@ service:
 
 task:
   volumes:
-    config: /etc/elasticsearch
-    data: /data
-    logs: /var/log/elasticsearch
+    config: /etc/apache
+    logs: /var/log/apache
 
   containers:
-    elasticsearch:
-      image: elasticsearch:5
+    apache:
+      image: apache:1
       memory: 2048
       essential: True
       port_mappings:
         -
           host_port: 0
-          container_port: 9200
+          container_port: 80
           protocol: tcp
       mount_points:
-        /usr/share/elasticsearch/config:
+        /usr/share/apache/config:
           source_volume: config
-        /usr/share/elasticsearch/data:
-          source_volume: db
-        /usr/share/elasticsearch/logs:
+        /usr/share/apache/logs:
           source_volume: logs
 
 environments:
@@ -75,7 +72,7 @@ environments:
 You can use varibales inside configs and pass them from command line. 
 Variables injection will happen on pre-processing configuration, and therefore it is very powerful feature.
 
-Create: `~/services/webapp` file with following content:
+Create: `~/ecsdeploy/services/webapp` file with following content:
 ```
 service:
   name: helloworld 
