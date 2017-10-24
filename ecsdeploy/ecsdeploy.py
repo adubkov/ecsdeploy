@@ -2,8 +2,7 @@ import logging
 import sys
 
 import boto3
-
-from botocore.config import Config
+import botocore.config
 
 from .args import Arguments
 from .config import Config
@@ -74,9 +73,9 @@ class ECSDeploy(object):
         7. Instance metadata with IAM Role
         """
 
-        config = Config(
+        config = botocore.config.Config(
             retries = dict(
-                max_attempts = 50
+                max_attempts = 50 - 1 # not sure why, but boto add +1
             )
         )
 
