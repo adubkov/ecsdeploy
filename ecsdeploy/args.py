@@ -62,15 +62,6 @@ class Arguments(UserDict, object):
         parser.add_argument('--aws-profile',
                             help='~/.aws/credentials profile to use.')
 
-        parser.add_argument('--aws-access-key-id',
-                            help='AWS Access Key ID.')
-
-        parser.add_argument('--aws-secret-access-key',
-                            help='AWS Secret Access Key.')
-
-        parser.add_argument('--aws-session-token',
-                            help='AWS Session Token.')
-
         parser.add_argument('-p',
                             '--print',
                             default=False,

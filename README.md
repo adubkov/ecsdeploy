@@ -1,5 +1,7 @@
 # ECSDeploy
 
+`ecsdeploy` allow you deploy containers to various ecs clusters using templatized yaml-based config files.
+
 When you using ecsdeploy you have to be in current configs directory:
 ```
 $ tree ~/ecsdeploy

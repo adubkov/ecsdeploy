@@ -3,6 +3,8 @@ import sys
 
 import boto3
 
+from botocore.config import Config
+
 from .args import Arguments
 from .config import Config
 from .cluster import Cluster
@@ -71,17 +73,19 @@ class ECSDeploy(object):
         6. Boto2 config file (/etc/boto.cfg and ~/.boto)
         7. Instance metadata with IAM Role
         """
-        session = boto3.session.Session(
-            region_name=s['region'],
-            profile_name=s.get('aws_profile'),
-            aws_access_key_id=s.get('aws_access_key_id'),
-            aws_secret_access_key=s.get('aws_secret_access_key'),
-            aws_session_token=s.get('aws_session_token'),
+
+        config = Config(
+            retries = dict(
+                max_attempts = 50
+            )
         )
 
-        sess = session.client(aws_service)
-        sess.meta.events._unique_id_handlers['retry-config-ecs']['handler']._checker.__dict__['_max_attempts'] = 50
-        return sess
+        session = boto3.session.Session(
+            region_name=s['region'],
+            profile_name=s.get('aws_profile')
+        )
+
+        return session.client(aws_service, config=config)
 
     def _create_cluster(self):
         ecs = self.conn['ecs']
