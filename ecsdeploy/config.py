@@ -153,6 +153,13 @@ class Config(UserDict, object):
     def _post_processing(config, args):
         for arg in args:
             k,v = arg.split('=')
+
+            # Try cast to int else use as string
+            try:
+                v = int(v)
+            except ValueError:
+                pass
+
             path = k.split('.')
             c = config
             for n, i in enumerate(path):
